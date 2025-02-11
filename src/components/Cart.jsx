@@ -6,8 +6,13 @@ import { useState } from "react";
 import { FaBasketShopping } from "react-icons/fa6";
 
 const Cart = () => {
-  const [activeCart, setActiveCart] = useState(true);
+  const [activeCart, setActiveCart] = useState(false);
   const cartItems = useSelector((state) => state.cart.cart);
+  const totalQty = cartItems.reduce((totalQty, item) => totalQty + item.qty, 0);
+  const totalPrice = cartItems.reduce(
+    (total, item) => total + item.qty * item.price,
+    0
+  );
 
   return (
     <>
@@ -50,8 +55,10 @@ const Cart = () => {
         </div>
 
         <div className="absolute bottom-0">
-          <h3 className="font-semibold text-gray-800">Items: </h3>
-          <h3 className="font-semibold text-gray-800">Total Amount</h3>
+          <h3 className="font-semibold text-gray-800">Items: {totalQty} </h3>
+          <h3 className="font-semibold text-gray-800">
+            Total Amount : ${totalPrice}
+          </h3>
           <hr className="w-[90vw] lg:w-[25vw] my-2" />
 
           <button className="mb-5 bg-green-500 font-bold px-3 py-2 text-white rounded-lg w-[90vw] lg:w-[26vw]">
@@ -61,7 +68,9 @@ const Cart = () => {
       </div>
       <FaBasketShopping
         onClick={() => setActiveCart(!activeCart)}
-        className="rounded-full bg-white shadow-md text-6xl p-3 fixed bottom-10 right-4"
+        className={`rounded-full bg-white shadow-md text-6xl p-3 fixed bottom-10 right-4 ${
+          totalQty > 0 ? "animate-bounce delay-500 transition-all" : ""
+        } `}
       />
     </>
   );

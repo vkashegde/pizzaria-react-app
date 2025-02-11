@@ -9,7 +9,7 @@ const Navbar = () => {
           <h1 className="text-2xl font-bold">Pizzario Foods </h1>
         </div>
 
-        <div>
+        <div className="mt-10">
           <input
             className="p-3 border border-gray-400 text-sm rounded-lg outline-none w-full lg:w-[25vw]"
             type="search"
